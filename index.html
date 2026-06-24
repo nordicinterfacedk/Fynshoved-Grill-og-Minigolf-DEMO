@@ -361,6 +361,65 @@
 .gallery-grid img:hover {
   transform: scale(1.03);
 }
+
+
+/*Mobil Venligt*/
+/* ── MOBILE NAV ── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.2rem; }
+  .nav-links { display: none; }
+
+  .mobile-menu-btn {
+    display: flex; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .mobile-menu-btn span {
+    display: block; width: 24px; height: 2px;
+    background: var(--sand); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .mobile-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .mobile-menu-btn.open span:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav-drawer {
+    position: fixed; top: 57px; left: 0; right: 0;
+    background: rgba(28,58,42,0.98); backdrop-filter: blur(8px);
+    padding: 1.5rem 2rem; z-index: 99;
+    transform: translateY(-110%); transition: transform 0.3s ease;
+    border-bottom: 1px solid rgba(232,213,163,0.15);
+  }
+  .mobile-nav-drawer.open { transform: translateY(0); }
+  .mobile-nav-drawer a {
+    display: block; color: var(--sand); text-decoration: none;
+    font-size: 1.1rem; padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(232,213,163,0.1);
+    letter-spacing: 0.05em;
+  }
+  .mobile-nav-drawer a:last-child { border-bottom: none; }
+
+  /* Touch-friendly tap targets */
+  .btn-primary, .btn-outline { padding: 1rem 2rem; font-size: 0.95rem; }
+  .cat-btn { padding: 0.7rem 1.2rem; font-size: 0.85rem; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .arr-grid { grid-template-columns: 1fr; }
+  .om-facts { grid-template-columns: 1fr 1fr; }
+  .admin-form-row { grid-template-columns: 1fr; }
+
+  /* Larger touch targets for admin */
+  .btn-delete { padding: 0.6rem 1rem; font-size: 0.82rem; }
+  .admin-item { flex-wrap: wrap; }
+  .form-group input, .form-group textarea, .form-group select { 
+    font-size: 16px; /* Prevents iOS zoom on focus */ 
+    padding: 0.9rem 1rem;
+  }
+}
+
+/* Hide mobile button on desktop */
+@media (min-width: 769px) {
+  .mobile-menu-btn { display: none; }
+  .mobile-nav-drawer { display: none; }
+}
   </style>
 </head>
 <body>
@@ -373,7 +432,15 @@
     <li><a href="#menu">Menu</a></li>
     <li><a href="#arrangementer">Arrangementer</a></li>
   </ul>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-nav-drawer" id="mobileDrawer">
+  <a href="#om-os" onclick="closeMobileMenu()">Om os</a>
+  <a href="#menu" onclick="closeMobileMenu()">Menu</a>
+  <a href="#arrangementer" onclick="closeMobileMenu()">Arrangementer</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -587,6 +654,25 @@
 </div>
 
 <script>
+
+    // custom //
+
+    function toggleMobileMenu() {
+  const btn = document.getElementById('mobileMenuBtn');
+  const drawer = document.getElementById('mobileDrawer');
+  btn.classList.toggle('open');
+  drawer.classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenuBtn').classList.remove('open');
+  document.getElementById('mobileDrawer').classList.remove('open');
+}
+// Close drawer when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('nav') && !e.target.closest('.mobile-nav-drawer')) {
+    closeMobileMenu();
+  }
+});
   // ── STATE ──
   const DEFAULT_CREDS = { user: 'LotteAdmin', pass: '123' };
   let creds = JSON.parse(localStorage.getItem('fh_creds') || JSON.stringify(DEFAULT_CREDS));
