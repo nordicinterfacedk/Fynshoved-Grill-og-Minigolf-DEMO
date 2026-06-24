@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fynshoved Grill & Minigolf</title>
-<link rel="icon" type="image/png" href="billeder/logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,7 +53,7 @@
   min-height: 100vh;
   background:
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("billeder/billede 1.jpg");
+    url("billede-1.jpg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -342,6 +342,25 @@
       .om-image-box { aspect-ratio: 16/9; }
       .admin-form-row { grid-template-columns: 1fr; }
     }
+
+    /*CUSTOM*/
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 2px;
+  transition: transform 0.2s;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.03);
+}
   </style>
 </head>
 <body>
@@ -393,7 +412,7 @@
         </div>
       </div>
       <div class="om-image-box">
-  <img src="billeder/billede 3.jpg" alt="Om Fynshoved Grill">
+  <img src="billede-3.jpg" alt="Om Fynshoved Grill">
 </div>
     </div>
   </div>
@@ -418,6 +437,20 @@
     <div class="divider"></div>
     <div class="arr-grid" id="arrGrid"></div>
   </div>
+  <div class="container" style="margin-top:4rem;">
+  <p class="section-label">Galleri</p>
+  <h2 class="section-title">Billeder fra <em>Fynshoved</em></h2>
+  <div class="divider"></div>
+
+  <div class="gallery-grid">
+    <img src="billede-10.jpg" alt="">
+    <img src="billede-11.jpg" alt="">
+    <img src="billede-12.jpg" alt="">
+    <img src="billede-13.jpg" alt="">
+    <img src="billede-14.jpg" alt="">
+    <img src="billede-15.jpg" alt="">
+  </div>
+</div>
 </section>
 
 <!-- FOOTER -->
