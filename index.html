@@ -673,32 +673,67 @@ document.addEventListener('click', function(e) {
     closeMobileMenu();
   }
 });
-  // ── STATE ──
+  // ── CONFIG ──
+  const BIN_ID = '6a3c0471f5f4af5e2929d61c';
+  const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+  // Credentials gemmes kun lokalt (må ikke ligge i delt database)
   const DEFAULT_CREDS = { user: 'LotteAdmin', pass: '123' };
   let creds = JSON.parse(localStorage.getItem('fh_creds') || JSON.stringify(DEFAULT_CREDS));
   let loggedIn = false;
 
-  let dishes = JSON.parse(localStorage.getItem('fh_dishes') || JSON.stringify([
-    { id: 1, name: 'Klassisk Cheeseburger', price: '89 kr.', cat: 'Burgere', desc: 'Saftig bøf, cheddar, salat og hjemmelavet burger-dressing' },
-    { id: 2, name: 'Bacon Burger', price: '99 kr.', cat: 'Burgere', desc: 'Med sprødstegt bacon og BBQ-sauce' },
-    { id: 3, name: 'Fiskeburger', price: '95 kr.', cat: 'Burgere', desc: 'Paneret fisk med remoulade og syltede agurker' },
-    { id: 4, name: 'Grillpølse', price: '45 kr.', cat: 'Pølser', desc: 'Klassisk grillpølse med sennep og ketchup' },
-    { id: 5, name: 'Hotdog Deluxe', price: '55 kr.', cat: 'Pølser', desc: 'Med ristede løg, remoulade og agurk' },
-    { id: 6, name: 'Pomfritter', price: '35 kr.', cat: 'Tilbehør', desc: 'Sprøde pomfritter med dip' },
-    { id: 7, name: 'Softis', price: '30 kr.', cat: 'Is & Drikkevarer', desc: 'Cremet softis i kegle' },
-    { id: 8, name: 'Vand / Sodavand', price: '25 kr.', cat: 'Is & Drikkevarer', desc: 'Kold forfriskende drik fra køleskabet' },
-  ]));
+  let dishes = [];
+  let events = [];
 
-  let events = JSON.parse(localStorage.getItem('fh_events') || JSON.stringify([
-    { id: 1, title: 'Familiedag', date: '5. juli', day: 5, time: '12:00–18:00', desc: 'En hel dag med minigolf, præmier og grillfest for hele familien. Gratis entré for børn under 10.' },
-    { id: 2, title: 'Minigolf Turnering', date: '19. juli', day: 19, time: '13:00–16:00', desc: 'Tilmeld dig vores sommerturering! Alle niveauer er velkomne. Præmier til de tre bedste.' },
-    { id: 3, title: 'Solnedgangs-aften', date: '2. august', day: 2, time: '19:00–22:00', desc: 'Nyd den smukke solnedgang ved Fynshoved med live musik og særlig grillmenu.' },
-  ]));
+  const API_KEY = '$2a$10$.a4.paWbDa/QK/ws9hZkAee5E2FcIxLSI885HfPa.AVi07nvqkMmq';
 
-  function save() {
-    localStorage.setItem('fh_dishes', JSON.stringify(dishes));
-    localStorage.setItem('fh_events', JSON.stringify(events));
+  // ── JSONBIN: LÆS DATA ──
+  async function loadData() {
+    try {
+    const res = await fetch(BIN_URL + '/latest', {
+    headers: { 'X-Master-Key': API_KEY }
+    });
+      if (!res.ok) throw new Error('Kunne ikke hente data');
+      const json = await res.json();
+      const data = json.record;
+      dishes = data.dishes || [];
+      events = data.events || [];
+    } catch (e) {
+      console.warn('JSONBin fejl:', e);
+      dishes = [];
+      events = [];
+    }
+    renderMenu();
+    renderEvents();
   }
+
+  // ── JSONBIN: GEM DATA ──
+async function save() {
+  try {
+    const res = await fetch(BIN_URL, {
+      method: "PUT",
+      headers: {
+        "X-Master-Key": API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        dishes: dishes,
+        events: events
+      })
+    });
+
+    const responseText = await res.text();
+    console.log(res.status, responseText);
+
+    if (!res.ok) {
+      alert("Fejl " + res.status + ": " + responseText);
+      return;
+    }
+
+    console.log("Gemt OK!");
+  } catch (e) {
+    console.error(e);
+  }
+}
 
   // ── RENDER MENU ──
   function renderMenu(activeCat = 'Alle') {
@@ -776,18 +811,28 @@ document.addEventListener('click', function(e) {
   }
 
   // ── ADMIN ACTIONS ──
-  function addDish() {
-    const name = document.getElementById('newDishName').value.trim();
-    const price = document.getElementById('newDishPrice').value.trim();
-    const cat = document.getElementById('newDishCat').value.trim();
-    const desc = document.getElementById('newDishDesc').value.trim();
-    if (!name || !price || !cat) return alert('Udfyld venligst navn, pris og kategori.');
-    const id = Date.now();
-    const priceStr = price.includes('kr') ? price : price + ' kr.';
-    dishes.push({ id, name, price: priceStr, cat, desc });
-    save(); renderMenu(); renderAdminLists();
-    ['newDishName','newDishPrice','newDishCat','newDishDesc'].forEach(id => document.getElementById(id).value = '');
+function addDish() {
+  const name = document.getElementById('newDishName').value.trim();
+  const price = document.getElementById('newDishPrice').value.trim();
+  const cat = document.getElementById('newDishCat').value.trim();
+  const desc = document.getElementById('newDishDesc').value.trim();
+
+  if (!name || !price || !cat) {
+    return alert('Udfyld venligst navn, pris og kategori.');
   }
+
+  const id = Date.now();
+  const priceStr = price.includes('kr') ? price : price + ' kr.';
+
+  dishes.push({ id, name, price: priceStr, cat, desc });
+
+  save(); renderMenu(); renderAdminLists();
+
+  document.getElementById('newDishName').value = '';
+  document.getElementById('newDishPrice').value = '';
+  document.getElementById('newDishCat').value = '';
+  document.getElementById('newDishDesc').value = '';
+}
 
   function deleteDish(id) {
     dishes = dishes.filter(d => d.id !== id);
@@ -877,8 +922,7 @@ document.addEventListener('click', function(e) {
   }
 
   // ── INIT ──
-  renderMenu();
-  renderEvents();
+  loadData();
 </script>
 </body>
 </html>
