@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fynshoved Grill & Minigolf</title>
+<link rel="icon" type="image/png" href="billeder/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:   #1C3A2A;
+      --green-mid: #2B5540;
+      --sand:    #E8D5A3;
+      --amber:   #D4752E;
+      --amber-light: #E8935A;
+      --offwhite:#F9F5EC;
+      --charcoal:#1A1A18;
+      --muted:   #7A7060;
+      --white:   #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--offwhite); color: var(--charcoal); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(28,58,42,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(232,213,163,0.15);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--sand); letter-spacing: 0.03em;
+      line-height: 1.2;
+    }
+    .nav-logo span { color: var(--amber); display: block; font-style: italic; font-size: 0.85rem; font-weight: 400; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(232,213,163,0.8); text-decoration: none;
+      font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("billeder/billede 1.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 6rem 2rem 4rem;
+}
+    #hero {
+
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
+    }
+    .hero-waves {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
+      background: var(--offwhite);
+      clip-path: ellipse(60% 100% at 50% 100%);
+    }
+    .hero-glow {
+      position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 200px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(212,117,46,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-sun {
+      position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 80px; border-radius: 50%;
+      background: radial-gradient(circle, #FFD580 0%, var(--amber) 60%, transparent 100%);
+      box-shadow: 0 0 60px 20px rgba(212,117,46,0.4);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 700px; }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 1.2rem; font-weight: 700;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900; line-height: 1.0;
+      color: var(--sand);
+    }
+    .hero-title em { color: var(--amber); font-style: italic; display: block; }
+    .hero-sub {
+      margin-top: 1.5rem; font-size: 1.1rem; color: rgba(232,213,163,0.7);
+      font-weight: 300; line-height: 1.7; max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .hero-cta {
+      margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--amber); color: white; padding: 0.9rem 2.2rem;
+      border: none; border-radius: 2px; font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--sand); padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(232,213,163,0.4); border-radius: 2px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--sand); color: var(--white); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--amber); font-weight: 700; margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15;
+      color: var(--green); margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--amber); }
+    .divider {
+      width: 48px; height: 3px; background: var(--amber); margin: 1.5rem 0 2.5rem;
+    }
+
+    /* ── OM OS ── */
+    #om-os { background: var(--offwhite); }
+    .om-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .om-text p { font-size: 1.05rem; line-height: 1.8; color: #3A3A38; margin-bottom: 1.2rem; font-weight: 300; }
+    .om-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .fact-card {
+      background: var(--green); color: var(--sand); padding: 1.5rem;
+      border-radius: 2px;
+    }
+    .fact-card .num {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem;
+      color: var(--amber); font-weight: 900; line-height: 1;
+    }
+    .fact-card .label { font-size: 0.8rem; opacity: 0.8; margin-top: 0.3rem; letter-spacing: 0.05em; }
+    .om-image-box {
+      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green) 100%);
+      border-radius: 2px; aspect-ratio: 4/5;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; position: relative; overflow: hidden;
+    }
+    .om-image-box::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(212,117,46,0.3) 0%, transparent 60%);
+    }
+
+    /* ── MENU ── */
+    #menu { background: var(--green); }
+    #menu .section-title { color: var(--sand); }
+    #menu .section-label { color: var(--amber-light); }
+    .menu-categories { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .cat-btn {
+      padding: 0.5rem 1.2rem; background: transparent;
+      border: 1px solid rgba(232,213,163,0.3); color: rgba(232,213,163,0.7);
+      border-radius: 2px; cursor: pointer; font-size: 0.8rem; letter-spacing: 0.08em;
+      text-transform: uppercase; font-family: 'Lato', sans-serif;
+      transition: all 0.2s;
+    }
+    .cat-btn.active, .cat-btn:hover {
+      background: var(--amber); border-color: var(--amber); color: white;
+    }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .menu-item {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(232,213,163,0.1);
+      border-radius: 2px; padding: 1.5rem; transition: border-color 0.2s;
+    }
+    .menu-item:hover { border-color: rgba(212,117,46,0.5); }
+    .menu-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .menu-item-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--sand); font-weight: 700; }
+    .menu-item-price { color: var(--amber); font-weight: 700; font-size: 1rem; white-space: nowrap; }
+    .menu-item-desc { font-size: 0.88rem; color: rgba(232,213,163,0.55); margin-top: 0.5rem; line-height: 1.6; }
+    .menu-item-cat { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,213,163,0.35); margin-top: 0.8rem; }
+    .menu-empty { color: rgba(232,213,163,0.4); font-style: italic; text-align: center; padding: 3rem; grid-column: 1/-1; }
+
+    /* ── ARRANGEMENTER ── */
+    #arrangementer { background: var(--offwhite); }
+    .arr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+    .arr-card {
+      background: white; border-radius: 2px; overflow: hidden;
+      box-shadow: 0 2px 16px rgba(28,58,42,0.08); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .arr-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(28,58,42,0.14); }
+    .arr-card-top {
+      background: var(--green); padding: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .arr-date-box {
+      background: var(--amber); color: white; padding: 0.6rem 0.9rem;
+      text-align: center; border-radius: 2px; min-width: 60px;
+    }
+    .arr-date-box .day { font-family: 'Playfair Display', serif; font-size: 1.8rem; line-height: 1; font-weight: 900; }
+    .arr-date-box .month { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .arr-title-wrap .arr-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--sand); font-weight: 700; }
+    .arr-title-wrap .arr-time { font-size: 0.8rem; color: rgba(232,213,163,0.6); margin-top: 0.2rem; }
+    .arr-body { padding: 1.5rem; }
+    .arr-body p { font-size: 0.92rem; color: #4A4A46; line-height: 1.7; }
+    .arr-empty { color: var(--muted); font-style: italic; text-align: center; padding: 3rem; grid-column: 1/-1; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal); color: rgba(232,213,163,0.6);
+      padding: 3rem 2rem; text-align: center;
+    }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--sand);
+      font-weight: 700; margin-bottom: 0.5rem;
+    }
+    footer p { font-size: 0.85rem; line-height: 1.8; }
+    .footer-admin-link {
+      margin-top: 1.5rem; display: inline-block;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(232,213,163,0.25); text-decoration: none; cursor: pointer;
+      transition: color 0.2s;
+    }
+    .footer-admin-link:hover { color: var(--amber); }
+
+    /* ── ADMIN MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--offwhite); border-radius: 2px; width: 100%; max-width: 700px;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+    }
+    .modal-header {
+      background: var(--green); color: var(--sand); padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 1;
+    }
+    .modal-header h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+    .modal-header span { font-size: 0.75rem; opacity: 0.6; }
+    .modal-close {
+      background: none; border: none; color: var(--sand); font-size: 1.5rem;
+      cursor: pointer; opacity: 0.6; transition: opacity 0.2s; line-height: 1;
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-body { padding: 2rem; }
+
+    /* Login panel */
+    #login-panel .login-form { max-width: 320px; margin: 0 auto; text-align: center; }
+    #login-panel h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--green); margin-bottom: 0.5rem; }
+    #login-panel p { font-size: 0.88rem; color: var(--muted); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1rem; text-align: left; }
+    .form-group label { display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 0.4rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid #D0C8B8;
+      border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.92rem;
+      background: white; color: var(--charcoal); transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--amber);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .login-error { color: #C0392B; font-size: 0.85rem; margin-top: 0.5rem; min-height: 1.2rem; }
+    .btn-green {
+      background: var(--green); color: white; padding: 0.85rem 2rem;
+      border: none; border-radius: 2px; font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+      width: 100%; transition: background 0.2s; font-family: 'Lato', sans-serif;
+    }
+    .btn-green:hover { background: var(--green-mid); }
+
+    /* Admin panel */
+    #admin-panel { display: none; }
+    #admin-panel.visible { display: block; }
+    .admin-tabs { display: flex; gap: 0; border-bottom: 2px solid #D0C8B8; margin-bottom: 2rem; }
+    .admin-tab {
+      padding: 0.75rem 1.5rem; font-size: 0.82rem; letter-spacing: 0.08em;
+      text-transform: uppercase; font-weight: 700; cursor: pointer; border: none;
+      background: none; color: var(--muted); border-bottom: 2px solid transparent;
+      margin-bottom: -2px; transition: all 0.2s; font-family: 'Lato', sans-serif;
+    }
+    .admin-tab.active { color: var(--green); border-bottom-color: var(--amber); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .admin-section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--green); margin-bottom: 1.2rem; }
+    .admin-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-amber {
+      background: var(--amber); color: white; padding: 0.75rem 1.5rem;
+      border: none; border-radius: 2px; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s; font-family: 'Lato', sans-serif;
+    }
+    .btn-amber:hover { background: var(--amber-light); }
+    .admin-list { margin-top: 2rem; }
+    .admin-list-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 1rem; }
+    .admin-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.9rem 1rem; background: white; border: 1px solid #E0D8C8;
+      border-radius: 2px; margin-bottom: 0.5rem; gap: 1rem;
+    }
+    .admin-item-info { flex: 1; min-width: 0; }
+    .admin-item-name { font-weight: 700; font-size: 0.95rem; color: var(--green); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .admin-item-sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.15rem; }
+    .btn-delete {
+      background: none; border: 1px solid #E0C8C0; color: #C0392B; padding: 0.4rem 0.8rem;
+      border-radius: 2px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif;
+      white-space: nowrap;
+    }
+    .btn-delete:hover { background: #C0392B; color: white; border-color: #C0392B; }
+    .change-creds { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #E0D8C8; }
+    .success-msg { color: #27AE60; font-size: 0.85rem; margin-top: 0.5rem; min-height: 1.2rem; }
+    .admin-logout {
+      margin-top: 1.5rem; background: none; border: 1px solid #D0C8B8; color: var(--muted);
+      padding: 0.5rem 1.2rem; border-radius: 2px; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; font-family: 'Lato', sans-serif;
+      transition: all 0.2s;
+    }
+    .admin-logout:hover { border-color: #C0392B; color: #C0392B; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .om-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .om-image-box { aspect-ratio: 16/9; }
+      .admin-form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Fynshoved<span>Grill & Minigolf</span></div>
+  <ul class="nav-links">
+    <li><a href="#om-os">Om os</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#arrangementer">Arrangementer</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-sun"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fynshoved · Kerteminde</p>
+    <h1 class="hero-title">
+    Grill &amp; Minigolf
+    </h1>
+    <p class="hero-sub">Frisk luft, god mad og 18 huller med udsigt over Storebælt. Velkommen til Fyns smukkeste spisested.</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn-primary">Se menuen</a>
+      <a href="#arrangementer" class="btn-outline">Arrangementer</a>
+    </div>
+  </div>
+  <div class="hero-waves"></div>
+</section>
+
+<!-- OM OS -->
+<section id="om-os">
+  <div class="container">
+    <div class="om-grid">
+      <div class="om-text">
+        <p class="section-label">Om os</p>
+        <h2 class="section-title">Et sted <em>skabt til minder</em></h2>
+        <div class="divider"></div>
+        <p>Fynshoved Grill & Minigolf ligger smukt placeret ved naturspidsen Fynshoved på det nordøstlige Fyn — omgivet af skov, strand og uendeligt havudsigt.</p>
+        <p>Vi er en familievenlig destination, hvor du kan nyde frisklavede retter fra grillen, slå en runde minigolf eller bare slappe af med udsigten som selskab.</p>
+        <p>Stedet drives med kærlighed og lokal stolthed, og vi lægger vægt på, at alle — fra de mindste til bedsteforældre — føler sig velkomne.</p>
+        <div class="om-facts">
+        <div class="fact-card"><div class="num">18</div><div class="label">Minigolfhuller</div></div>
+        <div class="fact-card"><div class="num">Familie</div><div class="label">Venligt miljø</div></div>
+        <div class="fact-card"><div class="num">Udsigt</div><div class="label">Over havet</div></div>
+        <div class="fact-card"><div class="num">Grill</div><div class="label">Frisk mad</div></div>
+        </div>
+      </div>
+      <div class="om-image-box">
+  <img src="billeder/billede 3.jpg" alt="Om Fynshoved Grill">
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <p class="section-label">Hvad smager det af?</p>
+    <h2 class="section-title" style="color:var(--sand)">Vores <em>Menukort</em></h2>
+    <div class="divider"></div>
+    <div class="menu-categories" id="menuCats"></div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- ARRANGEMENTER -->
+<section id="arrangementer">
+  <div class="container">
+    <p class="section-label">Hvad sker der?</p>
+    <h2 class="section-title">Kommende <em>Arrangementer</em></h2>
+    <div class="divider"></div>
+    <div class="arr-grid" id="arrGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Fynshoved Grill & Minigolf</div>
+  <p>Fynshoved · 5300 Kerteminde<br>Åbent dagligt i sæsonen</p>
+  <button class="footer-admin-link" onclick="openAdmin()">Admin</button>
+</footer>
+
+<!-- ADMIN MODAL -->
+<div class="modal-overlay" id="adminOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2>Administration</h2>
+        <span>Fynshoved Grill & Minigolf</span>
+      </div>
+      <button class="modal-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- LOGIN -->
+      <div id="login-panel">
+        <div class="login-form">
+          <h3>Log ind</h3>
+          <p>Indtast dine admin-oplysninger</p>
+          <div class="form-group">
+            <label>Brugernavn</label>
+            <input type="text" id="loginUser" placeholder="Brugernavn" />
+          </div>
+          <div class="form-group">
+            <label>Adgangskode</label>
+            <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+          </div>
+          <p class="login-error" id="loginError"></p>
+          <button class="btn-green" onclick="doLogin()">Log ind</button>
+        </div>
+      </div>
+
+      <!-- ADMIN PANEL -->
+      <div id="admin-panel">
+        <div class="admin-tabs">
+          <button class="admin-tab active" onclick="switchTab('menu-tab', this)">🍽️ Menu</button>
+          <button class="admin-tab" onclick="switchTab('arr-tab', this)">📅 Arrangementer</button>
+          <button class="admin-tab" onclick="switchTab('settings-tab', this)">⚙️ Indstillinger</button>
+        </div>
+
+        <!-- MENU TAB -->
+        <div class="tab-panel active" id="menu-tab">
+          <p class="admin-section-title">Tilføj ny ret</p>
+          <div class="admin-form-row">
+            <div class="form-group">
+              <label>Navn på ret</label>
+              <input type="text" id="newDishName" placeholder="f.eks. Cheeseburger" />
+            </div>
+            <div class="form-group">
+              <label>Pris (kr.)</label>
+              <input type="text" id="newDishPrice" placeholder="f.eks. 89" />
+            </div>
+          </div>
+          <div class="admin-form-row">
+            <div class="form-group">
+              <label>Kategori</label>
+              <input type="text" id="newDishCat" placeholder="f.eks. Burgere" />
+            </div>
+            <div class="form-group">
+              <label>Beskrivelse</label>
+              <input type="text" id="newDishDesc" placeholder="Kort beskrivelse..." />
+            </div>
+          </div>
+          <button class="btn-amber" onclick="addDish()">+ Tilføj ret</button>
+          <div class="admin-list">
+            <p class="admin-list-title">Alle retter på menukortet</p>
+            <div id="adminDishList"></div>
+          </div>
+        </div>
+
+        <!-- ARRANGEMENTER TAB -->
+        <div class="tab-panel" id="arr-tab">
+          <p class="admin-section-title">Tilføj nyt arrangement</p>
+          <div class="admin-form-row">
+            <div class="form-group">
+              <label>Titel</label>
+              <input type="text" id="newArrTitle" placeholder="f.eks. Familiedag" />
+            </div>
+            <div class="form-group">
+              <label>Dato (f.eks. 15. juli)</label>
+              <input type="text" id="newArrDate" placeholder="f.eks. 15. juli" />
+            </div>
+          </div>
+          <div class="admin-form-row">
+            <div class="form-group">
+              <label>Tid</label>
+              <input type="text" id="newArrTime" placeholder="f.eks. 14:00–18:00" />
+            </div>
+            <div class="form-group">
+              <label>Dag i måneden (tal)</label>
+              <input type="number" id="newArrDay" placeholder="15" min="1" max="31"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Beskrivelse</label>
+            <textarea id="newArrDesc" placeholder="Beskrivelse af arrangementet..."></textarea>
+          </div>
+          <button class="btn-amber" onclick="addArr()">+ Tilføj arrangement</button>
+          <div class="admin-list">
+            <p class="admin-list-title">Kommende arrangementer</p>
+            <div id="adminArrList"></div>
+          </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="tab-panel" id="settings-tab">
+          <p class="admin-section-title">Skift login-oplysninger</p>
+          <div class="change-creds">
+            <div class="form-group">
+              <label>Nyt brugernavn</label>
+              <input type="text" id="newUsername" placeholder="Nyt brugernavn" />
+            </div>
+            <div class="form-group">
+              <label>Ny adgangskode</label>
+              <input type="password" id="newPassword" placeholder="Ny adgangskode" />
+            </div>
+            <div class="form-group">
+              <label>Bekræft adgangskode</label>
+              <input type="password" id="newPasswordConfirm" placeholder="Gentag adgangskode" />
+            </div>
+            <button class="btn-amber" onclick="saveCredentials()">Gem ændringer</button>
+            <p class="success-msg" id="credMsg"></p>
+          </div>
+        </div>
+
+        <button class="admin-logout" onclick="doLogout()">Log ud</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  const DEFAULT_CREDS = { user: 'LotteAdmin', pass: '123' };
+  let creds = JSON.parse(localStorage.getItem('fh_creds') || JSON.stringify(DEFAULT_CREDS));
+  let loggedIn = false;
+
+  let dishes = JSON.parse(localStorage.getItem('fh_dishes') || JSON.stringify([
+    { id: 1, name: 'Klassisk Cheeseburger', price: '89 kr.', cat: 'Burgere', desc: 'Saftig bøf, cheddar, salat og hjemmelavet burger-dressing' },
+    { id: 2, name: 'Bacon Burger', price: '99 kr.', cat: 'Burgere', desc: 'Med sprødstegt bacon og BBQ-sauce' },
+    { id: 3, name: 'Fiskeburger', price: '95 kr.', cat: 'Burgere', desc: 'Paneret fisk med remoulade og syltede agurker' },
+    { id: 4, name: 'Grillpølse', price: '45 kr.', cat: 'Pølser', desc: 'Klassisk grillpølse med sennep og ketchup' },
+    { id: 5, name: 'Hotdog Deluxe', price: '55 kr.', cat: 'Pølser', desc: 'Med ristede løg, remoulade og agurk' },
+    { id: 6, name: 'Pomfritter', price: '35 kr.', cat: 'Tilbehør', desc: 'Sprøde pomfritter med dip' },
+    { id: 7, name: 'Softis', price: '30 kr.', cat: 'Is & Drikkevarer', desc: 'Cremet softis i kegle' },
+    { id: 8, name: 'Vand / Sodavand', price: '25 kr.', cat: 'Is & Drikkevarer', desc: 'Kold forfriskende drik fra køleskabet' },
+  ]));
+
+  let events = JSON.parse(localStorage.getItem('fh_events') || JSON.stringify([
+    { id: 1, title: 'Familiedag', date: '5. juli', day: 5, time: '12:00–18:00', desc: 'En hel dag med minigolf, præmier og grillfest for hele familien. Gratis entré for børn under 10.' },
+    { id: 2, title: 'Minigolf Turnering', date: '19. juli', day: 19, time: '13:00–16:00', desc: 'Tilmeld dig vores sommerturering! Alle niveauer er velkomne. Præmier til de tre bedste.' },
+    { id: 3, title: 'Solnedgangs-aften', date: '2. august', day: 2, time: '19:00–22:00', desc: 'Nyd den smukke solnedgang ved Fynshoved med live musik og særlig grillmenu.' },
+  ]));
+
+  function save() {
+    localStorage.setItem('fh_dishes', JSON.stringify(dishes));
+    localStorage.setItem('fh_events', JSON.stringify(events));
+  }
+
+  // ── RENDER MENU ──
+  function renderMenu(activeCat = 'Alle') {
+    const cats = ['Alle', ...new Set(dishes.map(d => d.cat))];
+    const catEl = document.getElementById('menuCats');
+    catEl.innerHTML = cats.map(c =>
+      `<button class="cat-btn ${c === activeCat ? 'active' : ''}" onclick="renderMenu('${c}')">${c}</button>`
+    ).join('');
+    const filtered = activeCat === 'Alle' ? dishes : dishes.filter(d => d.cat === activeCat);
+    const grid = document.getElementById('menuGrid');
+    if (!filtered.length) {
+      grid.innerHTML = '<p class="menu-empty">Ingen retter i denne kategori endnu.</p>';
+      return;
+    }
+    grid.innerHTML = filtered.map(d => `
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <div class="menu-item-name">${d.name}</div>
+          <div class="menu-item-price">${d.price}</div>
+        </div>
+        <div class="menu-item-desc">${d.desc}</div>
+        <div class="menu-item-cat">${d.cat}</div>
+      </div>
+    `).join('');
+  }
+
+  // ── RENDER EVENTS ──
+  function renderEvents() {
+    const grid = document.getElementById('arrGrid');
+    if (!events.length) {
+      grid.innerHTML = '<p class="arr-empty">Ingen kommende arrangementer.</p>';
+      return;
+    }
+    grid.innerHTML = events.map(e => {
+      const parts = e.date.split(' ');
+      const month = parts.length > 1 ? parts[1] : '';
+      return `
+        <div class="arr-card">
+          <div class="arr-card-top">
+            <div class="arr-date-box">
+              <div class="day">${e.day}</div>
+              <div class="month">${month}</div>
+            </div>
+            <div class="arr-title-wrap">
+              <div class="arr-title">${e.title}</div>
+              <div class="arr-time">🕐 ${e.time}</div>
+            </div>
+          </div>
+          <div class="arr-body"><p>${e.desc}</p></div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── RENDER ADMIN LISTS ──
+  function renderAdminLists() {
+    const dishList = document.getElementById('adminDishList');
+    dishList.innerHTML = dishes.length ? dishes.map(d => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <div class="admin-item-name">${d.name}</div>
+          <div class="admin-item-sub">${d.cat} — ${d.price}</div>
+        </div>
+        <button class="btn-delete" onclick="deleteDish(${d.id})">Fjern</button>
+      </div>`).join('') : '<p style="color:var(--muted);font-style:italic;font-size:0.88rem;">Ingen retter endnu.</p>';
+
+    const arrList = document.getElementById('adminArrList');
+    arrList.innerHTML = events.length ? events.map(e => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <div class="admin-item-name">${e.title}</div>
+          <div class="admin-item-sub">${e.date} kl. ${e.time}</div>
+        </div>
+        <button class="btn-delete" onclick="deleteArr(${e.id})">Fjern</button>
+      </div>`).join('') : '<p style="color:var(--muted);font-style:italic;font-size:0.88rem;">Ingen arrangementer endnu.</p>';
+  }
+
+  // ── ADMIN ACTIONS ──
+  function addDish() {
+    const name = document.getElementById('newDishName').value.trim();
+    const price = document.getElementById('newDishPrice').value.trim();
+    const cat = document.getElementById('newDishCat').value.trim();
+    const desc = document.getElementById('newDishDesc').value.trim();
+    if (!name || !price || !cat) return alert('Udfyld venligst navn, pris og kategori.');
+    const id = Date.now();
+    const priceStr = price.includes('kr') ? price : price + ' kr.';
+    dishes.push({ id, name, price: priceStr, cat, desc });
+    save(); renderMenu(); renderAdminLists();
+    ['newDishName','newDishPrice','newDishCat','newDishDesc'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  function deleteDish(id) {
+    dishes = dishes.filter(d => d.id !== id);
+    save(); renderMenu(); renderAdminLists();
+  }
+
+  function addArr() {
+    const title = document.getElementById('newArrTitle').value.trim();
+    const date = document.getElementById('newArrDate').value.trim();
+    const time = document.getElementById('newArrTime').value.trim();
+    const day = parseInt(document.getElementById('newArrDay').value);
+    const desc = document.getElementById('newArrDesc').value.trim();
+    if (!title || !date || !time || !day) return alert('Udfyld alle felter.');
+    const id = Date.now();
+    events.push({ id, title, date, day, time, desc });
+    save(); renderEvents(); renderAdminLists();
+    ['newArrTitle','newArrDate','newArrTime','newArrDesc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('newArrDay').value = '';
+  }
+
+  function deleteArr(id) {
+    events = events.filter(e => e.id !== id);
+    save(); renderEvents(); renderAdminLists();
+  }
+
+  function saveCredentials() {
+    const u = document.getElementById('newUsername').value.trim();
+    const p = document.getElementById('newPassword').value;
+    const p2 = document.getElementById('newPasswordConfirm').value;
+    const msg = document.getElementById('credMsg');
+    if (!u || !p) { msg.textContent = 'Udfyld begge felter.'; msg.style.color = '#C0392B'; return; }
+    if (p !== p2) { msg.textContent = 'Adgangskoderne matcher ikke.'; msg.style.color = '#C0392B'; return; }
+    creds = { user: u, pass: p };
+    localStorage.setItem('fh_creds', JSON.stringify(creds));
+    msg.textContent = '✓ Oplysninger gemt!'; msg.style.color = '#27AE60';
+    document.getElementById('newUsername').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('newPasswordConfirm').value = '';
+    setTimeout(() => msg.textContent = '', 3000);
+  }
+
+  // ── AUTH ──
+  function doLogin() {
+    const u = document.getElementById('loginUser').value;
+    const p = document.getElementById('loginPass').value;
+    if (u === creds.user && p === creds.pass) {
+      loggedIn = true;
+      document.getElementById('login-panel').style.display = 'none';
+      document.getElementById('admin-panel').classList.add('visible');
+      renderAdminLists();
+    } else {
+      document.getElementById('loginError').textContent = 'Forkert brugernavn eller adgangskode.';
+    }
+  }
+
+  function doLogout() {
+    loggedIn = false;
+    document.getElementById('admin-panel').classList.remove('visible');
+    document.getElementById('login-panel').style.display = 'block';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginError').textContent = '';
+    closeAdmin();
+  }
+
+  // ── MODAL ──
+  function openAdmin() {
+    document.getElementById('adminOverlay').classList.add('open');
+    if (!loggedIn) {
+      document.getElementById('login-panel').style.display = 'block';
+      document.getElementById('admin-panel').classList.remove('visible');
+    }
+  }
+  function closeAdmin() {
+    document.getElementById('adminOverlay').classList.remove('open');
+  }
+  document.getElementById('adminOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeAdmin();
+  });
+
+  // ── TABS ──
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── INIT ──
+  renderMenu();
+  renderEvents();
+</script>
+</body>
+</html>
