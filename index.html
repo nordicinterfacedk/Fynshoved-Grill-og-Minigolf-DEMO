@@ -155,10 +155,11 @@
     }
     .fact-card .label { font-size: 0.8rem; opacity: 0.8; margin-top: 0.3rem; letter-spacing: 0.05em; }
     .om-image-box {
-      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green) 100%);
-      border-radius: 2px; aspect-ratio: 4/5;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5rem; position: relative; overflow: hidden;
+      border-radius: 2px; position: relative;
+    }
+    .om-image-box img {
+      width: 100%; height: auto; display: block;
+      border-radius: 2px; object-fit: contain;
     }
     .om-image-box::after {
       content: ''; position: absolute; inset: 0;
@@ -339,7 +340,7 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
       .om-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .om-image-box { aspect-ratio: 16/9; }
+      .om-image-box img { width: 100%; height: auto; }
       .admin-form-row { grid-template-columns: 1fr; }
     }
 
@@ -451,7 +452,7 @@
     <h1 class="hero-title">
     Grill &amp; Minigolf
     </h1>
-    <p class="hero-sub">Frisk luft, god mad og 18 huller med udsigt over Storebælt. Velkommen til Fyns smukkeste spisested.</p>
+    <p class="hero-sub">Hyggelig lille grill med spydstegte kyllinger og bøffer fra slagteren. Der er altid god stemning og tørvejr i teltet – Velkommen til "Det Fynske Skagen".</p>
     <div class="hero-cta">
       <a href="#menu" class="btn-primary">Se menuen</a>
       <a href="#arrangementer" class="btn-outline">Arrangementer</a>
@@ -468,15 +469,15 @@
         <p class="section-label">Om os</p>
         <h2 class="section-title">Et sted <em>skabt til minder</em></h2>
         <div class="divider"></div>
-        <p>Fynshoved Grill & Minigolf ligger smukt placeret ved naturspidsen Fynshoved på det nordøstlige Fyn — omgivet af skov, strand og uendeligt havudsigt.</p>
-        <p>Vi er en familievenlig destination, hvor du kan nyde frisklavede retter fra grillen, slå en runde minigolf eller bare slappe af med udsigten som selskab.</p>
-        <p>Stedet drives med kærlighed og lokal stolthed, og vi lægger vægt på, at alle — fra de mindste til bedsteforældre — føler sig velkomne.</p>
+        <p>Fynshoved Grill & Minigolf ligger smukt placeret ved Fynshoved Campingplads — omgivet af skov, strand og uendeligt havudsigt. Storebælt til den ene side og Odense Fjord til den anden, som mødes på spidsen af Fynshoved – "Det Fynske Skagen".</p>
+        <p>Vi er en familievenlig destination, hvor du kan nyde frisklavede retter fra grillen, slå en runde minigolf eller bare slappe af med en gl. dags isvaffel eller iskold fadøl, efter en gåtur rundt om Fynshoved.</p>
+        <p>Stedet drives med kærlighed og vi lægger vægt på gode friske råvarer, kød og kyllinger fra slagteren, og at alle — fra de mindste til bedsteforældre — føler sig velkomne hos os. Både som dagsturister og ved vores mange arrangementer.</p>
         <div class="om-facts">
 
         </div>
       </div>
       <div class="om-image-box">
-  <img src="billede-3.jpg" alt="Om Fynshoved Grill">
+  <img src="billede-9.jpg" alt="Om Fynshoved Grill">
 </div>
     </div>
   </div>
@@ -509,10 +510,13 @@
   <div class="gallery-grid">
     <img src="billede-10.jpg" alt="">
     <img src="billede-11.jpg" alt="">
-    <img src="billede-12.jpg" alt="">
-    <img src="billede-13.jpg" alt="">
-    <img src="billede-14.jpg" alt="">
-    <img src="billede-15.jpg" alt="">
+    <img src="billede-2.jpg" alt="">
+    <img src="billede-3.jpg" alt="">
+    <img src="billede-4.jpg" alt="">
+    <img src="billede-5.jpg" alt="">
+    <img src="billede-6.jpg" alt="">
+    <img src="billede-7.jpg" alt="">
+    <img src="billede-8.jpg" alt="">
   </div>
 </div>
 </section>
@@ -520,7 +524,15 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Fynshoved Grill & Minigolf</div>
-  <p>Fynshoved · 5300 Kerteminde<br>Åbent dagligt i sæsonen</p>
+  <p>Fynshovedvej 748 · 5390 Martofte · Tlf.: 20596606</p>
+  <p style="margin-top:0.8rem;font-size:0.8rem;line-height:2;">
+    <strong style="color:var(--sand);">Åbningstider</strong><br>
+    Påske–Pinse: Kun weekend kl. 12–19.30<br>
+    Pinse–uge 26: Hver dag kl. 12–19.30<br>
+    Uge 27–32: Hver dag kl. 12–20.30<br>
+    Uge 33–37: Kun weekend kl. 12–19.30
+  </p>
+  <p style="margin-top:0.8rem;font-size:0.78rem;">Find os på Facebook: <em>Fynshoved grill og Minigolf</em></p>
   <button class="footer-admin-link" onclick="openAdmin()">Admin</button>
 </footer>
 
@@ -589,6 +601,8 @@
           <div class="admin-list">
             <p class="admin-list-title">Alle retter på menukortet</p>
             <div id="adminDishList"></div>
+
+        
           </div>
         </div>
 
@@ -677,12 +691,70 @@ document.addEventListener('click', function(e) {
   const BIN_ID = '6a3c0471f5f4af5e2929d61c';
   const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
   // Credentials gemmes kun lokalt (må ikke ligge i delt database)
-  const DEFAULT_CREDS = { user: 'LotteAdmin', pass: '123' };
+  const DEFAULT_CREDS = { user: 'Fynshoved', pass: '123' };
   let creds = JSON.parse(localStorage.getItem('fh_creds') || JSON.stringify(DEFAULT_CREDS));
   let loggedIn = false;
 
   let dishes = [];
   let events = [];
+
+  const DEFAULT_DISHES = [
+    { id: 1,  name: 'Pommes frites', price: '40 kr.', cat: 'Pommes', desc: 'Inkl. 1 stort dyp eller 2 små forskellige' },
+    { id: 2,  name: 'Ekstra dyp', price: '5 kr.', cat: 'Pommes', desc: '' },
+    { id: 3,  name: 'Medister', price: '38 kr.', cat: 'Pølser', desc: '' },
+    { id: 4,  name: 'Grillpølse', price: '33 kr.', cat: 'Pølser', desc: '' },
+    { id: 5,  name: 'Fransk hotdog', price: '40 kr.', cat: 'Pølser', desc: '' },
+    { id: 6,  name: 'Ristet hotdog', price: '40 kr.', cat: 'Pølser', desc: '' },
+    { id: 7,  name: 'Hamburger 160g', price: '70 kr.', cat: 'Burgere', desc: 'Salat, tomat, løg, agurkesalat, mayo og hjemmerørt dressing' },
+    { id: 8,  name: 'Cheeseburger 160g', price: '75 kr.', cat: 'Burgere', desc: 'Ost, salat, tomat, løg, agurkesalat, mayo og hjemmerørt dressing' },
+    { id: 9,  name: 'Bacon-Cheeseburger 160g', price: '90 kr.', cat: 'Burgere', desc: 'Ost, bacon, salat, tomat, løg, agurkesalat, mayo og hj. rørt dressing' },
+    { id: 10, name: 'Fynshoved Burger 320g', price: '110 kr.', cat: 'Burgere', desc: '2 bøffer – ost, bacon, salat, tomat, løg, agurkesalat, mayo og hj. rørt dressing' },
+    { id: 11, name: 'Fiskeburger', price: '80 kr.', cat: 'Burgere', desc: 'Salat og tatarsauce' },
+    { id: 12, name: 'Frikadelleburger', price: '75 kr.', cat: 'Burgere', desc: 'Hjemmelavet rødkålsslaw, remoulade, agurkesalat og mayo' },
+    { id: 13, name: 'Flæskestegsburger', price: '75 kr.', cat: 'Burgere', desc: 'Hjemmelavet rødkålsslaw, flæskesvær, agurkesalat og mayo' },
+    { id: 14, name: 'Pulled Kylling Burger m. karry', price: '75 kr.', cat: 'Burgere', desc: 'Salat, bacon, agurkesalat, mayo og hjemmerørt dressing' },
+    { id: 15, name: 'Vegetarburger', price: '70 kr.', cat: 'Burgere', desc: '' },
+    { id: 16, name: 'Dagens ret / "Mormor mad"', price: '80 kr.', cat: 'Retter', desc: 'Spørg køkkenet' },
+    { id: 17, name: 'Pastasalat Vegetar', price: '60 kr.', cat: 'Retter', desc: '' },
+    { id: 18, name: 'Pastasalat m. Kylling', price: '75 kr.', cat: 'Retter', desc: '' },
+    { id: 19, name: 'Pølsemix', price: '70 kr.', cat: 'Retter', desc: 'Rå løg og karryketchup' },
+    { id: 20, name: '2 Fish & Pommes', price: '70 kr.', cat: 'Retter', desc: 'Tatarsauce eller 1 valgfrit dyp' },
+    { id: 21, name: '6 Nuggets m. pommes', price: '60 kr.', cat: 'Retter', desc: 'Inkl. 1 stort dyp eller 2 små forskellige' },
+    { id: 22, name: '½ Spydstegt kylling u. tilbehør', price: '90 kr.', cat: 'Retter', desc: '' },
+    { id: 23, name: '½ Spydstegt kylling m. tilbehør', price: '105 kr.', cat: 'Retter', desc: 'Syltede agurker, pommes og dyp' },
+    { id: 24, name: '1/1 Spydstegt kylling u. tilbehør', price: '170 kr.', cat: 'Retter', desc: 'Ikke klippet' },
+    { id: 25, name: '1/1 Spydstegt kylling m. tilbehør', price: '200 kr.', cat: 'Retter', desc: 'Syltede agurker, 2x pommes og 2x dyp – ikke klippet' },
+    { id: 26, name: 'Fynshoved Vaffel', price: '60 kr.', cat: 'Is', desc: 'Gammeldags is inkl. guf og syltetøj' },
+    { id: 27, name: 'Is 1 kugle', price: '32 kr.', cat: 'Is', desc: 'Inkl. guf og syltetøj' },
+    { id: 28, name: 'Is 2 kugler', price: '40 kr.', cat: 'Is', desc: 'Inkl. guf og syltetøj' },
+    { id: 29, name: 'Is 3 kugler', price: '48 kr.', cat: 'Is', desc: 'Inkl. guf og syltetøj' },
+    { id: 30, name: 'Is 4 kugler', price: '56 kr.', cat: 'Is', desc: 'Inkl. guf og syltetøj' },
+    { id: 31, name: 'Softice', price: '25 kr.', cat: 'Is', desc: '' },
+    { id: 32, name: 'Soft Cornetto – Lille', price: '25 kr.', cat: 'Is', desc: 'I bæger eller vaffel' },
+    { id: 33, name: 'Soft Cornetto – Stor', price: '45 kr.', cat: 'Is', desc: 'I bæger eller vaffel' },
+    { id: 34, name: 'Magnum', price: '30 kr.', cat: 'Is', desc: 'Frisko is' },
+    { id: 35, name: 'Cornetto King', price: '40 kr.', cat: 'Is', desc: 'Frisko is' },
+    { id: 36, name: 'Ben & Jerry', price: '25 kr.', cat: 'Is', desc: 'Frisko is' },
+    { id: 37, name: 'Fadøl 40 cl.', price: '40 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 38, name: 'Klippekort 11 x fadøl', price: '400 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 39, name: 'Fadølskande 2 liter', price: '175 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 40, name: 'Husets vin pr. glas', price: '40 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 41, name: 'Vin pr. flaske', price: '200 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 42, name: 'Drink m. 2 cl. spiritus', price: '50 kr.', cat: 'Drikkevarer', desc: 'Inkl. vand' },
+    { id: 43, name: 'Drink m. 4 cl. spiritus', price: '70 kr.', cat: 'Drikkevarer', desc: 'Inkl. vand' },
+    { id: 44, name: 'Sodavand', price: '20 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 45, name: 'Kildevand', price: '20 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 46, name: 'Cocio / Kakaomælk', price: '30 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 47, name: 'Kaffe', price: '20 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 48, name: 'Is Kaffe', price: '40 kr.', cat: 'Drikkevarer', desc: '' },
+    { id: 49, name: 'Minigolf pr. pers.', price: '35 kr.', cat: 'Spil & Aktiviteter', desc: '18 huller med udsigt over Storebælt' },
+    { id: 50, name: 'Klippekort 10 x minigolf', price: '300 kr.', cat: 'Spil & Aktiviteter', desc: '' },
+    { id: 51, name: 'Minigolf + Is m. 2 kugler', price: '65 kr.', cat: 'Spil & Aktiviteter', desc: 'Pr. person' },
+    { id: 52, name: 'Gratis brætspil', price: '0 kr.', cat: 'Spil & Aktiviteter', desc: 'Alle spil skal spilles/blive på grillen' },
+    { id: 53, name: 'Kage', price: '20 kr.', cat: 'Diverse', desc: '' },
+    { id: 54, name: 'Kaffe + Kage', price: '35 kr.', cat: 'Diverse', desc: '' },
+    { id: 55, name: 'Chips', price: '25 kr.', cat: 'Diverse', desc: '' },
+  ];
 
   const API_KEY = '$2a$10$.a4.paWbDa/QK/ws9hZkAee5E2FcIxLSI885HfPa.AVi07nvqkMmq';
 
@@ -695,11 +767,11 @@ document.addEventListener('click', function(e) {
       if (!res.ok) throw new Error('Kunne ikke hente data');
       const json = await res.json();
       const data = json.record;
-      dishes = data.dishes || [];
+      dishes = (data.dishes && data.dishes.length > 0) ? data.dishes : DEFAULT_DISHES;
       events = data.events || [];
     } catch (e) {
       console.warn('JSONBin fejl:', e);
-      dishes = [];
+      dishes = DEFAULT_DISHES;
       events = [];
     }
     renderMenu();
